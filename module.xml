@@ -7,8 +7,9 @@
       <Description>Work with embeddings directly in SQL for InterSystems IRIS Vector Search</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <Resource Name="dc.sample.PKG"/>
-      <UnitTest Name="/tests" Package="dc.sample.unittests" Phase="test"/>
+      <Resource Name="dc.jrpereira.sqlembeddings.PKG"/>
+      <Resource Name="dc.jrpereiraSqlProcDefs.CLS"/>
+      <UnitTest Name="/tests" Package="dc.jrpereira.sqlembeddings.unittests" Phase="test"/>
     </Module>
   </Document>
 </Export>
