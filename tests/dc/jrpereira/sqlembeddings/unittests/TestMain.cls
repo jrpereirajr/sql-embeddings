@@ -1,12 +1,12 @@
-Class dc.jrpereira.sqlembeddings.unittests.TestMain
+Class dc.jrpereira.sqlembeddings.unittests.TestMain Extends %UnitTest.TestCase
 {
 
 /// Test initialization with valid parameters
 Method TestOnNewValid() As %Status
 {
     Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("Model1", "Value1")
-    Do ..AssertEquals(obj.ModelName, "Model1", "ModelName should be 'Model1'")
-    Do ..AssertEquals(obj.ValueToEmbed, "Value1", "ValueToEmbed should be 'Value1'")
+    Do $$$AssertEquals(obj.ModelName, "Model1", "ModelName should be 'Model1'")
+    Do $$$AssertEquals(obj.ValueToEmbed, "Value1", "ValueToEmbed should be 'Value1'")
     Return $$$OK
 }
 
@@ -16,7 +16,7 @@ Method TestOnNewEmptyModelName() As %Status
     Try {
         Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("", "Value1")
     } Catch ex {
-        Do ..AssertStatusEquals(ex.AsStatus(), $$$ERROR($$$GeneralError, "ModelName is required"), "Expected error for empty ModelName")
+        Do $$$AssertStatusEquals(ex.AsStatus(), $$$ERROR($$$GeneralError, "ModelName is required"), "Expected error for empty ModelName")
     }
     Return $$$OK
 }
@@ -27,7 +27,7 @@ Method TestOnNewEmptyValueToEmbed() As %Status
     Try {
         Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("Model1", "")
     } Catch ex {
-        Do ..AssertStatusEquals(ex.AsStatus(), $$$ERROR($$$GeneralError, "ValueToEmbed is required"), "Expected error for empty ValueToEmbed")
+        Do $$$AssertStatusEquals(ex.AsStatus(), $$$ERROR($$$GeneralError, "ValueToEmbed is required"), "Expected error for empty ValueToEmbed")
     }
     Return $$$OK
 }
@@ -38,7 +38,7 @@ Method TestOnNewBothEmpty() As %Status
     Try {
         Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("", "")
     } Catch ex {
-        Do ..AssertStatusEquals(ex.AsStatus(), $$$ERROR($$$GeneralError, "ModelName is required"), "Expected error for empty ModelName")
+        Do $$$AssertStatusEquals(ex.AsStatus(), $$$ERROR($$$GeneralError, "ModelName is required"), "Expected error for empty ModelName")
         // Note: The test stops at the first validation failure encountered (ModelName), so no need to check ValueToEmbed here.
     }
     Return $$$OK
@@ -49,7 +49,7 @@ Method TestValidateValid() As %Status
 {
     Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("Model1", "Value1")
     Set sc = obj.Validate()
-    Do ..AssertStatusOK(sc, "Validation should succeed for valid properties")
+    Do $$$AssertStatusOK(sc, "Validation should succeed for valid properties")
     Return $$$OK
 }
 
@@ -57,8 +57,7 @@ Method TestValidateValid() As %Status
 Method TestValidateEmptyModelName() As %Status
 {
     Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("", "Value1")
-    Set sc = obj.Validate()
-    Do ..AssertStatusEquals(sc, $$$ERROR($$$GeneralError, "ModelName is required"), "Validation should fail for empty ModelName")
+    Do $$$AssertEquals(obj, "", "Validation should fail for empty ModelName")
     Return $$$OK
 }
 
@@ -66,8 +65,7 @@ Method TestValidateEmptyModelName() As %Status
 Method TestValidateEmptyValueToEmbed() As %Status
 {
     Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("Model1", "")
-    Set sc = obj.Validate()
-    Do ..AssertStatusEquals(sc, $$$ERROR($$$GeneralError, "ValueToEmbed is required"), "Validation should fail for empty ValueToEmbed")
+    Do $$$AssertEquals(obj, "", "Validation should fail for empty ValueToEmbed")
     Return $$$OK
 }
 
@@ -76,7 +74,7 @@ Method TestExecute() As %Status
 {
     Set obj = ##class(dc.jrpereira.sqlembeddings.Main).%New("Model1", "Value1")
     Set result = obj.Execute()
-    Do ..AssertEquals(result, "", "Execute should return an empty string (placeholder implementation)")
+    Do $$$AssertEquals(result, "", "Execute should return an empty string (placeholder implementation)")
     Return $$$OK
 }
 

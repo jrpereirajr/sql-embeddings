@@ -12,7 +12,7 @@ Property ValueToEmbed;
 /// @param modelName The name of the model to be used.
 /// @param valueToEmbed The value to be embedded.
 /// @return Status of the operation (success or error).
-Method %OnNew(modelName As %String = "", valueToEmbed = "") As %Status
+Method %OnNew(modelName As %String = "", valueToEmbed = "") As %Status [ Private, ServerOnly = 1 ]
 {
     Set sc = $$$OK
     Try {
